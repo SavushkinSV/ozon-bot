@@ -12,7 +12,6 @@ import org.springframework.context.annotation.Configuration;
 public class BotProperties {
 
     private String token;
-
     private String username;
 
 }
