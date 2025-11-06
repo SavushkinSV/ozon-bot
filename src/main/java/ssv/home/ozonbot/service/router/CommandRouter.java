@@ -31,7 +31,7 @@ public class CommandRouter {
 
         CommandHandler handler = handlers.get(text);
         if (handler != null) {
-            return handler.handle(message, bot);
+            return handler.answer(message, bot);
         } else {
             // Команда не найдена
             SendMessage errorMsg = new SendMessage();

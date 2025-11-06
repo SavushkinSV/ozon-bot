@@ -6,6 +6,6 @@ import ssv.home.ozonbot.bot.TelegramBot;
 
 public interface CommandHandler {
 
-    BotApiMethod<?> handle(Message message, TelegramBot bot);
+    BotApiMethod<?> answer(Message message, TelegramBot bot);
     String getCommand(); // Возвращает команду (например, "/start")
 }

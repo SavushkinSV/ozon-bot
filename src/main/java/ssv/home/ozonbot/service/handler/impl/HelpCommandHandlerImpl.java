@@ -11,7 +11,7 @@ import ssv.home.ozonbot.service.handler.CommandHandler;
 public class HelpCommandHandlerImpl implements CommandHandler {
 
     @Override
-    public BotApiMethod<?> handle(Message message, TelegramBot bot) {
+    public BotApiMethod<?> answer(Message message, TelegramBot bot) {
         return bot.createApiSendMessageCommand("Показать список команд");
     }
 

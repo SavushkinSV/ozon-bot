@@ -81,7 +81,7 @@ public class TelegramBot extends TelegramLongPollingBot {
     /**
      * Синхронизирует командное меню Telegram‑бота с актуальным списком команд
      */
-    public void syncCommandsWithMenu() {
+    private void syncCommandsWithMenu() {
         List<BotCommand> commands = BotCommandEnum.getAllCommands();
         SetMyCommands setCommands = new SetMyCommands();
         setCommands.setCommands(commands);
