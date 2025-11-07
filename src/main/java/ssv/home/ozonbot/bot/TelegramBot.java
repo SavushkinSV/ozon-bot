@@ -72,10 +72,13 @@ public class TelegramBot extends TelegramLongPollingBot {
      */
     private <T extends Serializable, Method extends BotApiMethod<T>> T executeTelegramApiMethod(Method method) {
         try {
-            return super.sendApiMethod(method);
+            if (method != null) {
+                return super.sendApiMethod(method);
+            }
         } catch (TelegramApiException e) {
             throw new RuntimeException(e);
         }
+        return null;
     }
 
     /**
@@ -93,12 +96,13 @@ public class TelegramBot extends TelegramLongPollingBot {
      * Формирует объект {@code SendMessage} для отправки текстового сообщения через Telegram Bot API
      *
      * @param text текст сообщения
+     * @param parseMode тип режима парсинга текста в сообщении
      * @return объект класса {@code SendMessage}
      */
-    public SendMessage createApiSendMessageCommand(String text) {
+    public SendMessage createApiSendMessageCommand(String text, String parseMode) {
         SendMessage message = new SendMessage();
         message.setText(new String(text.getBytes(), StandardCharsets.UTF_8));
-        message.setParseMode("markdown");
+        message.setParseMode(parseMode);
         message.setChatId(getCurrentChatId());
         return message;
     }
@@ -110,7 +114,6 @@ public class TelegramBot extends TelegramLongPollingBot {
         if (updateEvent.get().hasMessage()) {
             return updateEvent.get().getMessage().getFrom().getId();
         }
-
         if (updateEvent.get().hasCallbackQuery()) {
             return updateEvent.get().getCallbackQuery().getFrom().getId();
         }

@@ -21,8 +21,11 @@ public enum BotCommandEnum {
     private final String command;
     private final String description;
 
-
-    // возвращает список всех команд
+    /**
+     * Возвращает список всех команд Telegram‑бота
+     *
+     * @return список команд
+     */
     public static List<BotCommand> getAllCommands() {
         return Arrays.stream(BotCommandEnum.class.getEnumConstants())
                 .map(cmd -> new BotCommand(cmd.command, cmd.description))
