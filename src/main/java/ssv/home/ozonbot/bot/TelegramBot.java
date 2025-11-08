@@ -19,6 +19,7 @@ import ssv.home.ozonbot.service.UpdateDispatcher;
 import java.io.Serializable;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
+import java.util.Set;
 
 @Component
 public class TelegramBot extends TelegramLongPollingBot {
@@ -85,26 +86,27 @@ public class TelegramBot extends TelegramLongPollingBot {
      * Синхронизирует командное меню Telegram‑бота с актуальным списком команд
      */
     private void syncCommandsWithMenu() {
-        List<BotCommand> commands = BotCommandEnum.getAllCommands();
-        SetMyCommands setCommands = new SetMyCommands();
-        setCommands.setCommands(commands);
-        setCommands.setScope(new BotCommandScopeAllPrivateChats());
+        List<BotCommand> commandList = BotCommandEnum.getAllCommands();
+        SetMyCommands setCommands = SetMyCommands.builder()
+                .commands(commandList)
+                .scope(new BotCommandScopeAllPrivateChats())
+                .build();
         executeTelegramApiMethod(setCommands);
     }
 
     /**
      * Формирует объект {@code SendMessage} для отправки текстового сообщения через Telegram Bot API
      *
-     * @param text текст сообщения
+     * @param text      текст сообщения
      * @param parseMode тип режима парсинга текста в сообщении
      * @return объект класса {@code SendMessage}
      */
     public SendMessage createApiSendMessageCommand(String text, String parseMode) {
-        SendMessage message = new SendMessage();
-        message.setText(new String(text.getBytes(), StandardCharsets.UTF_8));
-        message.setParseMode(parseMode);
-        message.setChatId(getCurrentChatId());
-        return message;
+        return SendMessage.builder()
+                .chatId(getCurrentChatId())
+                .text(new String(text.getBytes(), StandardCharsets.UTF_8))
+                .parseMode(parseMode)
+                .build();
     }
 
     /**

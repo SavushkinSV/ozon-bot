@@ -3,7 +3,7 @@ package ssv.home.ozonbot.service.router;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.telegram.telegrambots.meta.api.methods.BotApiMethod;
-import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
+import org.telegram.telegrambots.meta.api.methods.ParseMode;
 import org.telegram.telegrambots.meta.api.objects.Message;
 import ssv.home.ozonbot.bot.TelegramBot;
 import ssv.home.ozonbot.service.handler.CommandHandler;
@@ -34,10 +34,8 @@ public class CommandRouter {
             return handler.answer(message, bot);
         } else {
             // Команда не найдена
-            SendMessage errorMsg = new SendMessage();
-            errorMsg.setChatId(message.getChatId());
-            errorMsg.setText("Неизвестная команда: " + text);
-            return errorMsg;
+            String messageText = "Неизвестная команда: " + text;
+            return bot.createApiSendMessageCommand(messageText, ParseMode.MARKDOWN);
         }
     }
 

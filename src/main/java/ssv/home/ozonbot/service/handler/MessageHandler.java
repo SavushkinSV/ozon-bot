@@ -3,11 +3,12 @@ package ssv.home.ozonbot.service.handler;
 import org.springframework.stereotype.Service;
 import org.telegram.telegrambots.meta.api.methods.BotApiMethod;
 import org.telegram.telegrambots.meta.api.objects.Message;
+import ssv.home.ozonbot.bot.TelegramBot;
 
 @Service
 public class MessageHandler {
 
-    public BotApiMethod<?> answer(Message message) {
+    public BotApiMethod<?> answer(Message message, TelegramBot bot) {
 
 //            String messageText = message.getText();
 //            Long chatId = message.getChatId();
@@ -25,7 +26,6 @@ public class MessageHandler {
 //            }
 
             return null;
-
 
     }
 }
