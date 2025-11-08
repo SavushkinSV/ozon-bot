@@ -6,10 +6,12 @@ import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Transactional;
 import org.telegram.telegrambots.meta.api.objects.Message;
 import ssv.home.ozonbot.service.ClientService;
 
+/**
+ * Возможно удалить и использовать только в классе StartCommandHandlerImpl
+ */
 @Aspect
 @Component
 @AllArgsConstructor
@@ -22,7 +24,6 @@ public class ClientCreationAspect {
     }
 
     @Around("answerMethodPointcut()")
-    @Transactional
     public Object answerMethodAdvise(ProceedingJoinPoint joinPoint) throws Throwable {
         Object[] args = joinPoint.getArgs();
         Message message = (Message) args[0];
