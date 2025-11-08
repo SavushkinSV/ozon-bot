@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
 @Table(name = "clients")
 public class Client extends AbstractEntity {
 
-    private String chatId;
+    private Long chatId;
 
     private String firstName;
 

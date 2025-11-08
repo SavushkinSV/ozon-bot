@@ -7,7 +7,6 @@ import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.TelegramBotsApi;
 import org.telegram.telegrambots.meta.api.methods.BotApiMethod;
 import org.telegram.telegrambots.meta.api.methods.commands.SetMyCommands;
-import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.api.objects.commands.BotCommand;
 import org.telegram.telegrambots.meta.api.objects.commands.scope.BotCommandScopeAllPrivateChats;
@@ -17,9 +16,8 @@ import ssv.home.ozonbot.data.BotCommandEnum;
 import ssv.home.ozonbot.service.UpdateDispatcher;
 
 import java.io.Serializable;
-import java.nio.charset.StandardCharsets;
 import java.util.List;
-import java.util.Set;
+
 
 @Component
 public class TelegramBot extends TelegramLongPollingBot {
@@ -92,21 +90,6 @@ public class TelegramBot extends TelegramLongPollingBot {
                 .scope(new BotCommandScopeAllPrivateChats())
                 .build();
         executeTelegramApiMethod(setCommands);
-    }
-
-    /**
-     * Формирует объект {@code SendMessage} для отправки текстового сообщения через Telegram Bot API
-     *
-     * @param text      текст сообщения
-     * @param parseMode тип режима парсинга текста в сообщении
-     * @return объект класса {@code SendMessage}
-     */
-    public SendMessage createApiSendMessageCommand(String text, String parseMode) {
-        return SendMessage.builder()
-                .chatId(getCurrentChatId())
-                .text(new String(text.getBytes(), StandardCharsets.UTF_8))
-                .parseMode(parseMode)
-                .build();
     }
 
     /**

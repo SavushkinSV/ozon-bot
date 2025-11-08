@@ -19,7 +19,7 @@ public class ClientService {
         return repository.save(client);
     }
 
-    public Client createFromUser(User user, String chatId) {
+    public Client createFromUser(User user, Long chatId) {
         Client client = repository.findClientByChatId(chatId)
                 .orElse(new Client());
         if (client.getId() == null) {
@@ -32,12 +32,12 @@ public class ClientService {
         return create(client);
     }
 
-    public Client getByChatId(String chatId) {
+    public Client getByChatId(Long chatId) {
         return repository.findClientByChatId(chatId).
                 orElseThrow(() -> new EntityNotFoundException("Client not found with chatId: " + chatId));
     }
 
-    public boolean existsByChatId(String chatId) {
+    public boolean existsByChatId(Long chatId) {
         return repository.existsByChatId(chatId);
     }
 

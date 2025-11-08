@@ -8,8 +8,8 @@ import java.util.Optional;
 
 public interface ClientRepository extends JpaRepository<Client, Long> {
 
-    Optional<Client> findClientByChatId(String chatId);
+    Optional<Client> findClientByChatId(Long chatId);
 
-    boolean existsByChatId(String chatId);
+    boolean existsByChatId(Long chatId);
 
 }
