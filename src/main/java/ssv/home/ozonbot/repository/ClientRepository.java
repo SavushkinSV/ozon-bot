@@ -2,10 +2,12 @@ package ssv.home.ozonbot.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import ssv.home.ozonbot.model.Client;
+import org.springframework.stereotype.Repository;
+import ssv.home.ozonbot.entity.client.Client;
 
 import java.util.Optional;
 
+@Repository
 public interface ClientRepository extends JpaRepository<Client, Long> {
 
     Optional<Client> findClientByChatId(Long chatId);

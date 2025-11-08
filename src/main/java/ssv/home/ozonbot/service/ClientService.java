@@ -4,32 +4,44 @@ import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.telegram.telegrambots.meta.api.objects.User;
-import ssv.home.ozonbot.model.Client;
+import ssv.home.ozonbot.entity.client.Action;
+import ssv.home.ozonbot.entity.client.Client;
+import ssv.home.ozonbot.entity.client.ClientDetails;
+import ssv.home.ozonbot.entity.client.Role;
+import ssv.home.ozonbot.repository.ClientDetailsRepository;
 import ssv.home.ozonbot.repository.ClientRepository;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Service
 @AllArgsConstructor
 public class ClientService {
 
     private final ClientRepository repository;
+    private final ClientDetailsRepository clientDetailsRepository;
 
-    public Client create(Client client) {
+    public Client save(Client client) {
         return repository.save(client);
     }
 
-    public Client createFromUser(User user, Long chatId) {
-        Client client = repository.findClientByChatId(chatId)
-                .orElse(new Client());
-        if (client.getId() == null) {
-            client.setChatId(chatId);
-            client.setFirstName(user.getFirstName());
-            client.setLastName(user.getLastName());
-            client.setUserName(user.getUserName());
-            client.setRegisterAt(LocalDateTime.now());
-        }
-        return create(client);
+    public Client saveFromUser(User user) {
+        ClientDetails clientDetails = ClientDetails.builder()
+                .uuid(UUID.randomUUID())
+                .userName(user.getUserName())
+                .firstName(user.getFirstName())
+                .lastName(user.getLastName())
+                .registerAt(LocalDateTime.now())
+                .build();
+        clientDetailsRepository.save(clientDetails);
+
+        Client client = Client.builder()
+                .chatId(user.getId())
+                .action(Action.FREE)
+                .role(Role.EMPTY)
+                .clientDetails(clientDetails)
+                .build();
+        return save(client);
     }
 
     public Client getByChatId(Long chatId) {
