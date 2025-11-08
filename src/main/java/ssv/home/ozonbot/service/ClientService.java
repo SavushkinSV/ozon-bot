@@ -45,7 +45,7 @@ public class ClientService {
     }
 
     public Client getByChatId(Long chatId) {
-        return repository.findClientByChatId(chatId).
+        return repository.findByChatId(chatId).
                 orElseThrow(() -> new EntityNotFoundException("Client not found with chatId: " + chatId));
     }
 

@@ -6,14 +6,14 @@ import org.telegram.telegrambots.meta.api.methods.BotApiMethod;
 import org.telegram.telegrambots.meta.api.objects.Message;
 import ssv.home.ozonbot.bot.TelegramBot;
 import ssv.home.ozonbot.service.data.Command;
-import ssv.home.ozonbot.service.factory.AnswerMethodFactory;
+import ssv.home.ozonbot.service.factory.MethodFactory;
 import ssv.home.ozonbot.service.handler.CommandHandler;
 
 @Component
 @AllArgsConstructor
 public class HelpCommandHandlerImpl implements CommandHandler {
 
-    private final AnswerMethodFactory answerMethodFactory;
+    private final MethodFactory methodFactory;
 
     @Override
     public BotApiMethod<?> answer(Message message, TelegramBot bot) {
@@ -24,7 +24,7 @@ public class HelpCommandHandlerImpl implements CommandHandler {
                 ℹ️ *Как часто бот опрашивает маркетплейс Ozon?*
                 Минимальный период между опросами 1 час, по __необходимости__ этот период может быть увеличен.
                 """;
-        return answerMethodFactory.getSendMessageMarkdown(message.getChatId(), text, null);
+        return methodFactory.getSendMessageMarkdown(message.getChatId(), text, null);
     }
 
     @Override

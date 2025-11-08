@@ -9,7 +9,7 @@ import ssv.home.ozonbot.bot.TelegramBot;
 import ssv.home.ozonbot.entity.client.ClientDetails;
 import ssv.home.ozonbot.service.data.Command;
 import ssv.home.ozonbot.service.ClientService;
-import ssv.home.ozonbot.service.factory.AnswerMethodFactory;
+import ssv.home.ozonbot.service.factory.MethodFactory;
 import ssv.home.ozonbot.service.handler.CommandHandler;
 
 @Component
@@ -17,7 +17,7 @@ import ssv.home.ozonbot.service.handler.CommandHandler;
 public class StartCommandHandlerImpl implements CommandHandler {
 
     private final ClientService clientService;
-    private final AnswerMethodFactory answerMethodFactory;
+    private final MethodFactory methodFactory;
 
     @Override
     @Transactional
@@ -31,7 +31,7 @@ public class StartCommandHandlerImpl implements CommandHandler {
                 
                 🔅 Для начала отслеживания цены на товар отправьте боту артикул товара или ссылку на товар. Можно прислать список артикулов товаров через запятую или пробел.
                 """;
-        return answerMethodFactory.getSendMessageHtml(chatId, text, null);
+        return methodFactory.getSendMessageHtml(chatId, text, null);
     }
 
     @Override

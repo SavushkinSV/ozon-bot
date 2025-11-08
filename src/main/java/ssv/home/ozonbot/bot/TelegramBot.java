@@ -58,13 +58,14 @@ public class TelegramBot extends TelegramLongPollingBot {
         BotApiMethod<?> method = null;
         if (update.hasCallbackQuery()) {
             method = callbackQueryHandler.answer(update, this);
-        }
-        if (update.hasMessage()) {
+        } else if (update.hasMessage()) {
             Message message = update.getMessage();
             // проверяем, что текст не является командой бота
             if (message.isCommand()) {
                 method = commandRouter.route(message, this);
+                System.out.println("onUpdateReceived commandRouter");
             } else {
+                System.out.println("onUpdateReceived messageHandler");
                 method = messageHandler.answer(message, this);
             }
         }
@@ -87,7 +88,7 @@ public class TelegramBot extends TelegramLongPollingBot {
      * @param method API‑запрос к Telegram Bot API ({@code SendMessage}, {@code CallbackQuery}).
      * @return результат выполнения Telegram Bot API.
      */
-    private <T extends Serializable> T executeTelegramApiMethod(BotApiMethod<T> method) {
+    public <T extends Serializable> T executeTelegramApiMethod(BotApiMethod<T> method) {
         if (method == null) return null;
         try {
             return super.sendApiMethod(method);

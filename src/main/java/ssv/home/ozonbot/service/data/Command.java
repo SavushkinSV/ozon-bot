@@ -20,6 +20,7 @@ public enum Command {
 
     START("/start", "Начать работу"),
     HELP("/help", "Показать список команд"),
+    LOGIN("/login", "Авторизация пользователя"),
     PROFILE("/profile", "Ваш профиль"),
     PHOTOS("/photos", "Ваши фото");
 
