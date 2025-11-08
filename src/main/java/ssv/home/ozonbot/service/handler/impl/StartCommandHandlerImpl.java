@@ -5,7 +5,7 @@ import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.BotApiMethod;
 import org.telegram.telegrambots.meta.api.objects.Message;
 import ssv.home.ozonbot.bot.TelegramBot;
-import ssv.home.ozonbot.data.BotCommandEnum;
+import ssv.home.ozonbot.service.data.Command;
 import ssv.home.ozonbot.model.Client;
 import ssv.home.ozonbot.service.ClientService;
 import ssv.home.ozonbot.service.factory.AnswerMethodFactory;
@@ -40,6 +40,6 @@ public class StartCommandHandlerImpl implements CommandHandler {
 
     @Override
     public String getCommand() {
-        return BotCommandEnum.START.getCommand();
+        return Command.START.getCommand();
     }
 }

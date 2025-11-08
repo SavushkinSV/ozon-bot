@@ -1,4 +1,4 @@
-package ssv.home.ozonbot.data;
+package ssv.home.ozonbot.service.data;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,9 +9,14 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * Описывает команды Telegram‑бота и предоставляет удобный способ работать с ними в коде.
+ * Каждая строка задаёт одну команду бота.
+ */
+
 @Getter
 @AllArgsConstructor
-public enum BotCommandEnum {
+public enum Command {
 
     START("/start", "Начать работу"),
     HELP("/help", "Показать список команд"),
@@ -27,7 +32,7 @@ public enum BotCommandEnum {
      * @return список команд
      */
     public static List<BotCommand> getAllCommands() {
-        return Arrays.stream(BotCommandEnum.class.getEnumConstants())
+        return Arrays.stream(Command.class.getEnumConstants())
                 .map(cmd -> new BotCommand(cmd.command, cmd.description))
                 .collect(Collectors.toList());
     }
