@@ -9,7 +9,7 @@ import org.telegram.telegrambots.meta.api.objects.Message;
 import ssv.home.ozonbot.bot.TelegramBot;
 import ssv.home.ozonbot.entity.client.Client;
 import ssv.home.ozonbot.entity.client.ClientDetails;
-import ssv.home.ozonbot.repository.ClientRepository;
+import ssv.home.ozonbot.service.ClientService;
 import ssv.home.ozonbot.service.data.Command;
 import ssv.home.ozonbot.service.factory.MethodFactory;
 import ssv.home.ozonbot.service.handler.CommandHandler;
@@ -19,12 +19,19 @@ import ssv.home.ozonbot.service.handler.CommandHandler;
 public class ProfileCommandHandlerImpl implements CommandHandler {
 
     private final MethodFactory methodFactory;
-    private final ClientRepository clientRepository;
+    private final ClientService clientService;
 
     @Override
     @Transactional
     public BotApiMethod<?> answer(Message message, TelegramBot bot) {
-        return showProfile(message);
+        Client client = clientService.findByChatId(message.getChatId());
+        if (client.getRole().isAuthenticated())
+            return showProfile(message, client);
+
+        return methodFactory.getSendMessageText(
+                message.getChatId(),
+                "Вы не авторизованы. Авторизуйтесь с помощью команды /login",
+                null);
     }
 
     @Override
@@ -32,18 +39,17 @@ public class ProfileCommandHandlerImpl implements CommandHandler {
         return Command.PROFILE.getCommand();
     }
 
-
-    protected SendMessage showProfile(Message message) {
+    protected SendMessage showProfile(Message message, Client client) {
         Long chatId = message.getChatId();
         StringBuilder text = new StringBuilder();
-        Client client = clientRepository.findByChatId(chatId).orElse(null);
         ClientDetails clientDetails = client.getClientDetails();
 
         text.append("\uD83D\uDC64 Имя пользователя: ").append(clientDetails.getFirstName());
         text.append("\n\uD83D\uDCBC Роль: ").append(client.getRole().name());
         text.append("\n\uD83D\uDD11 Токен: ").append(client.getToken());
 
-        return methodFactory.getSendMessageText(chatId, text.toString(), null);
-
+        return methodFactory.getSendMessageText(chatId,
+                text.toString(),
+                null);
     }
 }

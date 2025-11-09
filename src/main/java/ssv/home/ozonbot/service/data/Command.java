@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.telegram.telegrambots.meta.api.objects.commands.BotCommand;
 
-
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -13,7 +12,6 @@ import java.util.stream.Collectors;
  * Описывает команды Telegram‑бота и предоставляет удобный способ работать с ними в коде.
  * Каждая строка задаёт одну команду бота.
  */
-
 @Getter
 @AllArgsConstructor
 public enum Command {

@@ -25,6 +25,10 @@ public enum Role {
                 .orElseThrow(() -> new IllegalArgumentException("Unknown role code: " + code));
     }
 
+    /**
+     *
+     * @return {@code true} если клиент прошел аутентификацию
+     */
     public boolean isAuthenticated() {
         return this != EMPTY;
     }
