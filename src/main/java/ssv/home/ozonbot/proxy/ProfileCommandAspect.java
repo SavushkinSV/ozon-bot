@@ -8,7 +8,6 @@ import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.objects.Message;
 import ssv.home.ozonbot.entity.client.Client;
-import ssv.home.ozonbot.entity.client.Role;
 import ssv.home.ozonbot.service.ClientService;
 import ssv.home.ozonbot.service.factory.MethodFactory;
 
@@ -30,7 +29,7 @@ public class ProfileCommandAspect {
         Client client = clientService.findByChatId(message.getChatId());
 
 
-        if (client.getRole() != Role.EMPTY) return joinPoint.proceed();
+        if (client.getRole().isAuthenticated()) return joinPoint.proceed();
 
         return methodFactory.getSendMessageText(
                 message.getChatId(),

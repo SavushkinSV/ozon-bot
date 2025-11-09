@@ -1,4 +1,4 @@
-package ssv.home.ozonbot.service.router;
+package ssv.home.ozonbot.service.manager.command;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,13 +13,13 @@ import java.util.List;
 import java.util.Map;
 
 @Service
-public class CommandRouter {
+public class CommandManager {
 
     private final MethodFactory methodFactory;
     private final Map<String, CommandHandler> handlers = new HashMap<>();
 
     @Autowired
-    public CommandRouter(List<CommandHandler> allHandlers) {
+    public CommandManager(List<CommandHandler> allHandlers) {
         allHandlers.forEach(this::registerHandler);
         this.methodFactory = new MethodFactory();
     }

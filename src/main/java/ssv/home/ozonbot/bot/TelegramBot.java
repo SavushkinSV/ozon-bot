@@ -17,7 +17,7 @@ import org.telegram.telegrambots.updatesreceivers.DefaultBotSession;
 import ssv.home.ozonbot.service.data.Command;
 import ssv.home.ozonbot.service.handler.CallbackQueryHandler;
 import ssv.home.ozonbot.service.handler.MessageHandler;
-import ssv.home.ozonbot.service.router.CommandRouter;
+import ssv.home.ozonbot.service.manager.command.CommandManager;
 
 import java.io.Serializable;
 import java.util.List;
@@ -27,18 +27,18 @@ public class TelegramBot extends TelegramLongPollingBot {
 
     private final BotProperties botProperties;
     private final MessageHandler messageHandler;
-    private final CommandRouter commandRouter;
+    private final CommandManager commandManager;
     private final CallbackQueryHandler callbackQueryHandler;
 
     @Autowired
     public TelegramBot(BotProperties botProperties,
                        MessageHandler messageHandler,
-                       CommandRouter commandRouter,
+                       CommandManager commandManager,
                        CallbackQueryHandler callbackQueryHandler) {
         super(botProperties.getToken());
         this.botProperties = botProperties;
         this.messageHandler = messageHandler;
-        this.commandRouter = commandRouter;
+        this.commandManager = commandManager;
         this.callbackQueryHandler = callbackQueryHandler;
     }
 
@@ -62,7 +62,7 @@ public class TelegramBot extends TelegramLongPollingBot {
             Message message = update.getMessage();
             // проверяем, что текст не является командой бота
             if (message.isCommand()) {
-                method = commandRouter.route(message, this);
+                method = commandManager.route(message, this);
             } else {
                 method = messageHandler.answer(message, this);
             }

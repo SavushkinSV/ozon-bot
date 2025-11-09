@@ -1,6 +1,7 @@
 package ssv.home.ozonbot.service.manager.auth;
 
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.telegram.telegrambots.meta.api.methods.BotApiMethod;
 import org.telegram.telegrambots.meta.api.objects.CallbackQuery;
@@ -17,10 +18,10 @@ import ssv.home.ozonbot.service.manager.AbstractManager;
 import java.util.List;
 
 import static ssv.home.ozonbot.service.data.Callback.AUTH_TEACHER;
-import static ssv.home.ozonbot.service.data.Callback.AUTH_STUDENT;
 
 @Service
 @AllArgsConstructor
+@Slf4j
 public class AuthManager extends AbstractManager {
 
     private final MethodFactory methodFactory;
@@ -34,6 +35,7 @@ public class AuthManager extends AbstractManager {
 
     @Override
     public BotApiMethod<?> answerMessage(Message message, TelegramBot bot) {
+        log.info("AuthManager " + "answerMessage");
         Long chatId = message.getChatId();
         Client client = clientService.findByChatId(chatId);
         client.setAction(Action.AUTH);
@@ -43,9 +45,9 @@ public class AuthManager extends AbstractManager {
                 chatId,
                 "Выберите свою роль",
                 keyboardFactory.getInlineKeyboard(
-                        List.of("Ученик", "Учитель"),
+                        Role.getDisplayNames(),
                         List.of(2),
-                        List.of(AUTH_STUDENT, AUTH_TEACHER)
+                        Role.getAuthCallbackCodes()
                 )
         );
     }
