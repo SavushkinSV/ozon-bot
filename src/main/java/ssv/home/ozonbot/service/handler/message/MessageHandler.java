@@ -2,6 +2,7 @@ package ssv.home.ozonbot.service.handler.message;
 
 import org.springframework.stereotype.Service;
 import org.telegram.telegrambots.meta.api.methods.BotApiMethod;
+import org.telegram.telegrambots.meta.api.objects.CallbackQuery;
 import org.telegram.telegrambots.meta.api.objects.Message;
 import ssv.home.ozonbot.bot.TelegramBot;
 import ssv.home.ozonbot.service.handler.Handler;
@@ -29,5 +30,10 @@ public class MessageHandler implements Handler {
 
             return null;
 
+    }
+
+    @Override
+    public BotApiMethod<?> answerCallbackQuery(CallbackQuery callbackQuery, TelegramBot bot) {
+        return null;
     }
 }

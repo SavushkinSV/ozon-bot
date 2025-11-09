@@ -13,7 +13,7 @@ import ssv.home.ozonbot.entity.client.Action;
 import ssv.home.ozonbot.entity.client.Client;
 import ssv.home.ozonbot.service.ClientService;
 import ssv.home.ozonbot.service.factory.MethodFactory;
-import ssv.home.ozonbot.service.manager.auth.AuthManager;
+import ssv.home.ozonbot.service.handler.auth.AuthHandler;
 
 @Aspect
 @Component
@@ -22,7 +22,7 @@ import ssv.home.ozonbot.service.manager.auth.AuthManager;
 public class AuthAspect {
 
     private final ClientService clientService;
-    private final AuthManager authManager;
+    private final AuthHandler authHandler;
     private final MethodFactory methodFactory;
 
     @Pointcut("execution(* ssv.home.ozonbot.service.handler.command.LoginCommandHandler.answerMessage(..))")
@@ -47,7 +47,7 @@ public class AuthAspect {
             return joinPoint.proceed();
         }
 
-        return authManager.answerMessage(message,
+        return authHandler.answerMessage(message,
                 (TelegramBot) joinPoint.getArgs()[1]);
     }
 }

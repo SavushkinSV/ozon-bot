@@ -1,4 +1,4 @@
-package ssv.home.ozonbot.service.manager.auth;
+package ssv.home.ozonbot.service.handler.auth;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -13,7 +13,7 @@ import ssv.home.ozonbot.service.data.Role;
 import ssv.home.ozonbot.service.ClientService;
 import ssv.home.ozonbot.service.factory.MethodFactory;
 import ssv.home.ozonbot.service.factory.KeyboardFactory;
-import ssv.home.ozonbot.service.manager.AbstractManager;
+import ssv.home.ozonbot.service.handler.Handler;
 
 import java.util.List;
 
@@ -22,16 +22,11 @@ import static ssv.home.ozonbot.service.data.Callback.AUTH_TEACHER;
 @Service
 @AllArgsConstructor
 @Slf4j
-public class AuthManager extends AbstractManager {
+public class AuthHandler implements Handler {
 
     private final MethodFactory methodFactory;
     private final KeyboardFactory keyboardFactory;
     private final ClientService clientService;
-
-    @Override
-    public BotApiMethod<?> answerCommand(Message message, TelegramBot bot) {
-        return null;
-    }
 
     @Override
     public BotApiMethod<?> answerMessage(Message message, TelegramBot bot) {
