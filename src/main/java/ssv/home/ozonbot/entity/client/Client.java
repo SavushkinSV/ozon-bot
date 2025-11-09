@@ -3,6 +3,7 @@ package ssv.home.ozonbot.entity.client;
 import jakarta.persistence.*;
 import lombok.*;
 import ssv.home.ozonbot.entity.AbstractEntity;
+import ssv.home.ozonbot.service.data.Role;
 
 import java.util.List;
 import java.util.UUID;

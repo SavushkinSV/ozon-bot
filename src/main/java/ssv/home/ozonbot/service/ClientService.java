@@ -7,7 +7,7 @@ import org.telegram.telegrambots.meta.api.objects.User;
 import ssv.home.ozonbot.entity.client.Action;
 import ssv.home.ozonbot.entity.client.Client;
 import ssv.home.ozonbot.entity.client.ClientDetails;
-import ssv.home.ozonbot.entity.client.Role;
+import ssv.home.ozonbot.service.data.Role;
 import ssv.home.ozonbot.repository.ClientDetailsRepository;
 import ssv.home.ozonbot.repository.ClientRepository;
 

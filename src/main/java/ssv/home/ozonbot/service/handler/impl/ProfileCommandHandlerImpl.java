@@ -39,6 +39,16 @@ public class ProfileCommandHandlerImpl implements CommandHandler {
         return Command.PROFILE.getCommand();
     }
 
+    /**
+     * Формирует объект {@link SendMessage} для отображения профиля пользователя в чате.
+     * <p>
+     * Метод собирает основные данные о клиенте (имя, роль, токен) и формирует текстовое сообщение
+     * с использованием эмодзи‑иконок для визуального выделения полей.
+     *
+     * @param message объект {@link Message}, полученный от Telegram.
+     * @param client  объект {@link Client}, содержащий данные пользователя.
+     * @return объект {@link SendMessage}, готовый к отправке через Telegram Bot API.
+     */
     protected SendMessage showProfile(Message message, Client client) {
         Long chatId = message.getChatId();
         StringBuilder text = new StringBuilder();

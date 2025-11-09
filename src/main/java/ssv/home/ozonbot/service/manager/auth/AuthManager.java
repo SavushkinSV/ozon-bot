@@ -9,7 +9,7 @@ import org.telegram.telegrambots.meta.api.objects.Message;
 import ssv.home.ozonbot.bot.TelegramBot;
 import ssv.home.ozonbot.entity.client.Action;
 import ssv.home.ozonbot.entity.client.Client;
-import ssv.home.ozonbot.entity.client.Role;
+import ssv.home.ozonbot.service.data.Role;
 import ssv.home.ozonbot.service.ClientService;
 import ssv.home.ozonbot.service.factory.MethodFactory;
 import ssv.home.ozonbot.service.factory.KeyboardFactory;

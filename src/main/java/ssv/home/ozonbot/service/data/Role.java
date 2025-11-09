@@ -1,4 +1,4 @@
-package ssv.home.ozonbot.entity.client;
+package ssv.home.ozonbot.service.data;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -26,8 +26,13 @@ public enum Role {
     }
 
     /**
+     * Проверяет, прошёл ли клиент аутентификацию.
+     * <p>
+     * Метод определяет статус аутентификации клиента на основе его роли. Клиент считается
+     * аутентифицированным, если его роль не равна {@link Role#EMPTY} (назначена конкретная роль в системе).
      *
-     * @return {@code true} если клиент прошел аутентификацию
+     * @return {@code true}, если клиент аутентифицирован (роль не {@code EMPTY});
+     * {@code false}, если клиент не прошёл аутентификацию (роль {@code EMPTY}).
      */
     public boolean isAuthenticated() {
         return this != EMPTY;
