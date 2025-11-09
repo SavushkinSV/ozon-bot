@@ -1,4 +1,4 @@
-package ssv.home.ozonbot.service.handler.impl;
+package ssv.home.ozonbot.service.handler.command;
 
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.BotApiMethod;
@@ -8,10 +8,10 @@ import ssv.home.ozonbot.service.data.Command;
 import ssv.home.ozonbot.service.handler.CommandHandler;
 
 @Component
-public class LoginCommandHandlerImpl implements CommandHandler {
+public class LoginCommandHandler implements CommandHandler {
 
     @Override
-    public BotApiMethod<?> answer(Message message, TelegramBot bot) {
+    public BotApiMethod<?> answerMessage(Message message, TelegramBot bot) {
         return null;
     }
 

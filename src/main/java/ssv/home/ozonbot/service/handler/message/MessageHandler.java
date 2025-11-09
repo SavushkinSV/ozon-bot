@@ -1,14 +1,16 @@
-package ssv.home.ozonbot.service.handler;
+package ssv.home.ozonbot.service.handler.message;
 
 import org.springframework.stereotype.Service;
 import org.telegram.telegrambots.meta.api.methods.BotApiMethod;
 import org.telegram.telegrambots.meta.api.objects.Message;
 import ssv.home.ozonbot.bot.TelegramBot;
+import ssv.home.ozonbot.service.handler.Handler;
 
 @Service
-public class MessageHandler {
+public class MessageHandler implements Handler {
 
-    public BotApiMethod<?> answer(Message message, TelegramBot bot) {
+    @Override
+    public BotApiMethod<?> answerMessage(Message message, TelegramBot bot) {
 
 //            String messageText = message.getText();
 //            Long chatId = message.getChatId();

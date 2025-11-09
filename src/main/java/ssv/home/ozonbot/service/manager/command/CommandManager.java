@@ -31,7 +31,7 @@ public class CommandManager {
     public BotApiMethod<?> route(Message message, TelegramBot bot) {
         CommandHandler handler = handlers.get(message.getText());
         if (handler != null) {
-            return handler.answer(message, bot);
+            return handler.answerMessage(message, bot);
         } else {
             // Команда не найдена
             String text = "Неизвестная команда: " + message.getText();

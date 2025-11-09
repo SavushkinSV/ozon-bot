@@ -1,4 +1,4 @@
-package ssv.home.ozonbot.service.handler.impl;
+package ssv.home.ozonbot.service.handler.command;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -13,12 +13,12 @@ import ssv.home.ozonbot.service.handler.CommandHandler;
 @Component
 @AllArgsConstructor
 @Slf4j
-public class HelpCommandHandlerImpl implements CommandHandler {
+public class HelpCommandHandler implements CommandHandler {
 
     private final MethodFactory methodFactory;
 
     @Override
-    public BotApiMethod<?> answer(Message message, TelegramBot bot) {
+    public BotApiMethod<?> answerMessage(Message message, TelegramBot bot) {
         log.info("HelpCommandHandlerImpl " + "answer");
         String text = """
                 ℹ️ *Как работает бот?*

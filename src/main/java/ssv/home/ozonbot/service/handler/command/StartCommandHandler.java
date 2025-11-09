@@ -1,4 +1,4 @@
-package ssv.home.ozonbot.service.handler.impl;
+package ssv.home.ozonbot.service.handler.command;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -14,14 +14,14 @@ import ssv.home.ozonbot.service.handler.CommandHandler;
 
 @Component
 @AllArgsConstructor
-public class StartCommandHandlerImpl implements CommandHandler {
+public class StartCommandHandler implements CommandHandler {
 
     private final ClientService clientService;
     private final MethodFactory methodFactory;
 
     @Override
     @Transactional
-    public BotApiMethod<?> answer(Message message, TelegramBot bot) {
+    public BotApiMethod<?> answerMessage(Message message, TelegramBot bot) {
         Long chatId = message.getFrom().getId();
 
         if (!clientService.existsByChatId(chatId)) {

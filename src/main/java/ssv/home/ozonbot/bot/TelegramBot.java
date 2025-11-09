@@ -16,7 +16,7 @@ import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import org.telegram.telegrambots.updatesreceivers.DefaultBotSession;
 import ssv.home.ozonbot.service.data.Command;
 import ssv.home.ozonbot.service.handler.CallbackQueryHandler;
-import ssv.home.ozonbot.service.handler.MessageHandler;
+import ssv.home.ozonbot.service.handler.message.MessageHandler;
 import ssv.home.ozonbot.service.manager.command.CommandManager;
 
 import java.io.Serializable;
@@ -57,14 +57,14 @@ public class TelegramBot extends TelegramLongPollingBot {
     public void onUpdateReceived(Update update) {
         BotApiMethod<?> method = null;
         if (update.hasCallbackQuery()) {
-            method = callbackQueryHandler.answer(update, this);
+            method = callbackQueryHandler.answerMessage(update, this);
         } else if (update.hasMessage()) {
             Message message = update.getMessage();
             // проверяем, что текст не является командой бота
             if (message.isCommand()) {
                 method = commandManager.route(message, this);
             } else {
-                method = messageHandler.answer(message, this);
+                method = messageHandler.answerMessage(message, this);
             }
         }
         executeTelegramApiMethod(method);

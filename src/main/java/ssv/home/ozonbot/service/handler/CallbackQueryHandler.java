@@ -13,11 +13,11 @@ import static ssv.home.ozonbot.service.data.Callback.*;
 @Service
 @AllArgsConstructor
 @Slf4j
-public class CallbackQueryHandler implements Handler {
+public class CallbackQueryHandler  {
 
     private final AuthManager authManager;
 
-    public BotApiMethod<?> answer(Update update, TelegramBot bot) {
+    public BotApiMethod<?> answerMessage(Update update, TelegramBot bot) {
         String callbackData = update.getCallbackQuery().getData();
         String keyWord = callbackData.split("_")[0];
         log.info("CallbackQueryHandler answer callbackData={} keyWord={}", callbackData, keyWord);

@@ -25,7 +25,7 @@ public class AuthAspect {
     private final AuthManager authManager;
     private final MethodFactory methodFactory;
 
-    @Pointcut("execution(* ssv.home.ozonbot.service.handler.impl.LoginCommandHandlerImpl.answer(..))")
+    @Pointcut("execution(* ssv.home.ozonbot.service.handler.command.LoginCommandHandler.answerMessage(..))")
     public void answerMethodPointcut() {
     }
 
