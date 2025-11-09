@@ -32,9 +32,8 @@ public class AuthAspect {
 
     @Around("answerMethodPointcut()")
     public Object authMethodAdvise(ProceedingJoinPoint joinPoint) throws Throwable {
-        System.out.println("authMethodAdvise");
         Message message = (Message) joinPoint.getArgs()[0];
-        Client client = clientService.getByChatId(message.getChatId());
+        Client client = clientService.findByChatId(message.getChatId());
 
         if (client.getRole() != Role.EMPTY) {
             if (client.getAction() == Action.FREE) {

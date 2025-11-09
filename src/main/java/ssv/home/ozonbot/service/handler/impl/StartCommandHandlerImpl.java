@@ -23,7 +23,7 @@ public class StartCommandHandlerImpl implements CommandHandler {
     @Transactional
     public BotApiMethod<?> answer(Message message, TelegramBot bot) {
         Long chatId = message.getFrom().getId();
-        ClientDetails clientDetails = clientService.getByChatId(chatId).getClientDetails();
+        ClientDetails clientDetails = clientService.findByChatId(chatId).getClientDetails();
 
         String text = "Здравствуйте <b>" + clientDetails.getFirstName() + " " + clientDetails.getLastName() +
                 "</b>!\n\n" + """

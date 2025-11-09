@@ -63,9 +63,7 @@ public class TelegramBot extends TelegramLongPollingBot {
             // проверяем, что текст не является командой бота
             if (message.isCommand()) {
                 method = commandRouter.route(message, this);
-                System.out.println("onUpdateReceived commandRouter");
             } else {
-                System.out.println("onUpdateReceived messageHandler");
                 method = messageHandler.answer(message, this);
             }
         }

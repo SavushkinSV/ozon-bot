@@ -5,7 +5,6 @@ import lombok.*;
 import ssv.home.ozonbot.entity.AbstractEntity;
 
 import java.time.LocalDateTime;
-import java.util.UUID;
 
 @Getter
 @Setter
@@ -15,8 +14,6 @@ import java.util.UUID;
 @Entity
 @Table(name = "client_details")
 public class ClientDetails extends AbstractEntity {
-
-    private UUID uuid;
 
     private String firstName;
 

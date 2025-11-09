@@ -35,7 +35,7 @@ public class AuthManager extends AbstractManager {
     @Override
     public BotApiMethod<?> answerMessage(Message message, TelegramBot bot) {
         Long chatId = message.getChatId();
-        Client client = clientService.getByChatId(chatId);
+        Client client = clientService.findByChatId(chatId);
         client.setAction(Action.AUTH);
         clientService.save(client);
 
@@ -54,7 +54,7 @@ public class AuthManager extends AbstractManager {
     public BotApiMethod<?> answerCallbackQuery(CallbackQuery callbackQuery, TelegramBot bot) {
         Long chatId = callbackQuery.getMessage().getChatId();
         Integer messageId = callbackQuery.getMessage().getMessageId();
-        Client client = clientService.getByChatId(chatId);
+        Client client = clientService.findByChatId(chatId);
         if (AUTH_TEACHER.equals(callbackQuery.getData())) {
             client.setRole(Role.TEACHER);
         } else {

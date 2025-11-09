@@ -12,7 +12,6 @@ import ssv.home.ozonbot.repository.ClientDetailsRepository;
 import ssv.home.ozonbot.repository.ClientRepository;
 
 import java.time.LocalDateTime;
-import java.util.UUID;
 
 @Service
 @AllArgsConstructor
@@ -27,7 +26,6 @@ public class ClientService {
 
     public Client saveFromUser(User user) {
         ClientDetails clientDetails = ClientDetails.builder()
-                .uuid(UUID.randomUUID())
                 .userName(user.getUserName())
                 .firstName(user.getFirstName())
                 .lastName(user.getLastName())
@@ -44,9 +42,13 @@ public class ClientService {
         return save(client);
     }
 
-    public Client getByChatId(Long chatId) {
+    public Client findByChatId(Long chatId) {
         return repository.findByChatId(chatId).
                 orElseThrow(() -> new EntityNotFoundException("Client not found with chatId: " + chatId));
+    }
+
+    public Client findByToken(String token) {
+        return repository.findByToken(token);
     }
 
     public boolean existsByChatId(Long chatId) {
