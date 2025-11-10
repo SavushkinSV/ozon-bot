@@ -9,10 +9,10 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>ssv.home</groupId>
-    <artifactId>ozon-bot</artifactId>
+    <artifactId>oil-bot</artifactId>
     <version>0.0.1</version>
-    <name>ozon-bot</name>
-    <description>ozon-bot</description>
+    <name>oil-bot</name>
+    <description>oil-bot</description>
     <url/>
     <licenses>
         <license/>
@@ -64,6 +64,16 @@
             <groupId>org.telegram</groupId>
             <artifactId>telegrambots</artifactId>
             <version>6.5.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.micrometer</groupId>
+            <artifactId>micrometer-registry-prometheus</artifactId>
+            <version>1.15.5</version>
         </dependency>
     </dependencies>
 
