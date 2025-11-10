@@ -4,14 +4,18 @@ import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.AnswerCallbackQuery;
 import org.telegram.telegrambots.meta.api.methods.ParseMode;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
+import org.telegram.telegrambots.meta.api.methods.send.SendPhoto;
 import org.telegram.telegrambots.meta.api.methods.updatingmessages.DeleteMessage;
+import org.telegram.telegrambots.meta.api.objects.InputFile;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboard;
+
+import java.io.InputStream;
 
 @Component
 public class MethodFactory {
 
     /**
-     * Формирует объект {@code SendMessage} для отправки текстового сообщения через Telegram Bot API
+     * Формирует объект {@link SendMessage} для отправки текстового сообщения через Telegram Bot API
      *
      * @param chatId    задает {@code ID} чата;
      * @param text      текст сообщения;
@@ -70,6 +74,53 @@ public class MethodFactory {
                 .callbackQueryId(callbackQueryId)
                 .text(text)
                 .build();
+    }
+
+    public static InputStream loadImage(String name) {
+        try {
+            return ClassLoader.getSystemResourceAsStream("images/" + name + ".jpg");
+        } catch (Exception e) {
+            throw new RuntimeException("Can't load photo!");
+        }
+    }
+
+    /**
+     * Формирует объект {@link SendPhoto} для отправки фото через Telegram Bot API
+     *
+     * @param chatId    задает {@code ID} чата;
+     * @param photoKey
+     * @param caption   задает подпись для фото;
+     * @param parseMode режим форматирования текста в подписи ("Markdown", "HTML" или null).
+     * @return
+     */
+    private SendPhoto getSendPhoto(Long chatId,
+                                   String photoKey,
+                                   String caption,
+                                   String parseMode) {
+        try {
+            InputFile inputFile = new InputFile();
+            var is = loadImage(photoKey);
+            inputFile.setMedia(is, photoKey);
+
+            SendPhoto photo = new SendPhoto();
+            photo.setPhoto(inputFile);
+            photo.setChatId(chatId);
+
+            if (caption != null && !caption.isEmpty()) {
+                photo.setCaption(caption);
+                photo.setParseMode(parseMode);
+            }
+
+            return photo;
+        } catch (Exception e) {
+            throw new RuntimeException("Can't create photo message!");
+        }
+    }
+
+    public SendPhoto getSendPhotoHtml(Long chatId,
+                                      String photoKey,
+                                      String caption) {
+        return getSendPhoto(chatId, photoKey, caption, ParseMode.HTML);
     }
 
 }

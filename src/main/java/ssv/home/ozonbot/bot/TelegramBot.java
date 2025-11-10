@@ -7,6 +7,7 @@ import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.TelegramBotsApi;
 import org.telegram.telegrambots.meta.api.methods.BotApiMethod;
 import org.telegram.telegrambots.meta.api.methods.commands.SetMyCommands;
+import org.telegram.telegrambots.meta.api.methods.send.SendPhoto;
 import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.api.objects.commands.BotCommand;
@@ -90,6 +91,14 @@ public class TelegramBot extends TelegramLongPollingBot {
         if (method == null) return null;
         try {
             return super.sendApiMethod(method);
+        } catch (TelegramApiException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public Message executeTelegramApiMethod(SendPhoto message) {
+        try {
+            return super.execute(message);
         } catch (TelegramApiException e) {
             throw new RuntimeException(e);
         }

@@ -21,7 +21,7 @@ public enum Command {
     LOGIN("/login", "Авторизация пользователя"),
     PROFILE("/profile", "Ваш профиль"),
     PRODUCT("/product", "Список товаров"),
-    PHOTOS("/photos", "Ваши фото");
+    PHOTOS("/contact", "Наши контакты");
 
     private final String command;
     private final String description;

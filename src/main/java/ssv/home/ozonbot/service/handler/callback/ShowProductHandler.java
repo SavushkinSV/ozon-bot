@@ -25,18 +25,21 @@ public class ShowProductHandler implements Handler {
 
     @Override
     public BotApiMethod<?> answerCallbackQuery(CallbackQuery callbackQuery, TelegramBot bot) {
+        Long chatId = callbackQuery.getMessage().getChatId();
         String[] parts = callbackQuery.getData().split(":", 2);
         Long productId = Long.parseLong(parts[1]);
         Product product = productService.findById(productId);
         bot.executeTelegramApiMethod(methodFactory.getDeleteMessage(
-                callbackQuery.getMessage().getChatId(),
+                chatId,
                 callbackQuery.getMessage().getMessageId()));
 
-        return methodFactory.getSendMessageHtml(
-                callbackQuery.getMessage().getChatId(),
-                formatProduct(product),
-                null
-        );
+        bot.executeTelegramApiMethod(methodFactory.getSendPhotoHtml(
+                chatId,
+                parts[1],
+                formatProduct(product)
+        ));
+
+        return null;
     }
 
     private String formatProduct(Product product) {

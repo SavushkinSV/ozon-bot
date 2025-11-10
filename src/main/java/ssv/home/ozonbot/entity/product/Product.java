@@ -16,7 +16,9 @@ public class Product extends AbstractEntity {
     @Column(nullable = false)
     private String name;
 
+    @Column(columnDefinition = "TEXT")
     private String description;
+
 
     private Double price;
 
