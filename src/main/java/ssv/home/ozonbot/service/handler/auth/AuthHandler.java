@@ -30,7 +30,7 @@ public class AuthHandler implements Handler {
 
     @Override
     public BotApiMethod<?> answerMessage(Message message, TelegramBot bot) {
-        log.info("AuthManager " + "answerMessage");
+        log.debug("AuthHandler");
         Long chatId = message.getChatId();
         Client client = clientService.findByChatId(chatId);
         client.setAction(Action.AUTH);

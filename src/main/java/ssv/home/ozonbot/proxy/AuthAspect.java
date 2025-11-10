@@ -31,7 +31,7 @@ public class AuthAspect {
 
     @Around("answerMethodPointcut()")
     public Object authMethodAdvise(ProceedingJoinPoint joinPoint) throws Throwable {
-        log.info("AuthAspect " + "authMethodAdvise");
+        log.debug("AuthAspect authMethodAdvise");
 
         Message message = (Message) joinPoint.getArgs()[0];
         Client client = clientService.findByChatId(message.getChatId());
