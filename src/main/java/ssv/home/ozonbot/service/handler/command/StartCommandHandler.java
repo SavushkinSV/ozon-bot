@@ -1,6 +1,7 @@
 package ssv.home.ozonbot.service.handler.command;
 
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import org.telegram.telegrambots.meta.api.methods.BotApiMethod;
@@ -14,6 +15,7 @@ import ssv.home.ozonbot.service.handler.CommandHandler;
 
 @Component
 @AllArgsConstructor
+@Slf4j
 public class StartCommandHandler implements CommandHandler {
 
     private final ClientService clientService;
@@ -22,6 +24,7 @@ public class StartCommandHandler implements CommandHandler {
     @Override
     @Transactional
     public BotApiMethod<?> answerMessage(Message message, TelegramBot bot) {
+        log.info("StartCommandHandler answerMessage");
         Long chatId = message.getFrom().getId();
 
         if (!clientService.existsByChatId(chatId)) {

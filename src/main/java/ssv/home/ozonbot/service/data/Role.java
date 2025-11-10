@@ -54,7 +54,7 @@ public enum Role {
 
     public static List<String> getAuthCallbackCodes() {
         return getCallbackCodes().stream()
-                .map(code -> "auth_" + code)  // добавляем префикс к каждому коду
+                .map(code -> "auth:" + code)  // добавляем префикс к каждому коду
                 .toList();
     }
 }

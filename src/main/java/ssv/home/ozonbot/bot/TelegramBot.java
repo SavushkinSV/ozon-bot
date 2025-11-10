@@ -15,7 +15,7 @@ import org.telegram.telegrambots.meta.api.objects.commands.scope.BotCommandScope
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import org.telegram.telegrambots.updatesreceivers.DefaultBotSession;
 import ssv.home.ozonbot.service.data.Command;
-import ssv.home.ozonbot.service.handler.callbackquery.CallbackQueryHandler;
+import ssv.home.ozonbot.service.manager.callback.CallbackQueryManager;
 import ssv.home.ozonbot.service.handler.message.MessageHandler;
 import ssv.home.ozonbot.service.manager.command.CommandManager;
 
@@ -28,18 +28,18 @@ public class TelegramBot extends TelegramLongPollingBot {
     private final BotProperties botProperties;
     private final MessageHandler messageHandler;
     private final CommandManager commandManager;
-    private final CallbackQueryHandler callbackQueryHandler;
+    private final CallbackQueryManager callbackQueryManager;
 
     @Autowired
     public TelegramBot(BotProperties botProperties,
                        MessageHandler messageHandler,
                        CommandManager commandManager,
-                       CallbackQueryHandler callbackQueryHandler) {
+                       CallbackQueryManager callbackQueryManager) {
         super(botProperties.getToken());
         this.botProperties = botProperties;
         this.messageHandler = messageHandler;
         this.commandManager = commandManager;
-        this.callbackQueryHandler = callbackQueryHandler;
+        this.callbackQueryManager = callbackQueryManager;
     }
 
     @PostConstruct
@@ -57,7 +57,7 @@ public class TelegramBot extends TelegramLongPollingBot {
     public void onUpdateReceived(Update update) {
         BotApiMethod<?> method = null;
         if (update.hasCallbackQuery()) {
-            method = callbackQueryHandler.answerCallbackQuery(update.getCallbackQuery(), this);
+            method = callbackQueryManager.route(update.getCallbackQuery(), this);
         } else if (update.hasMessage()) {
             Message message = update.getMessage();
             // проверяем, что текст не является командой бота
