@@ -1,5 +1,6 @@
 package ssv.home.ozonbot.service.factory;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.AnswerCallbackQuery;
 import org.telegram.telegrambots.meta.api.methods.ParseMode;
@@ -12,6 +13,7 @@ import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboard;
 import java.io.InputStream;
 
 @Component
+@Slf4j
 public class MethodFactory {
 
     /**
@@ -80,7 +82,8 @@ public class MethodFactory {
         try {
             return ClassLoader.getSystemResourceAsStream("images/" + name + ".jpg");
         } catch (Exception e) {
-            throw new RuntimeException("Can't load photo!");
+            log.error("Can't load photo!");
+            throw new RuntimeException();
         }
     }
 
@@ -113,7 +116,8 @@ public class MethodFactory {
 
             return photo;
         } catch (Exception e) {
-            throw new RuntimeException("Can't create photo message!");
+            log.error("Can't create photo message!");
+            throw new RuntimeException();
         }
     }
 

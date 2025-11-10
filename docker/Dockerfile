@@ -17,4 +17,4 @@ EXPOSE 8080
 
 ENV JAVA_TOOL_OPTIONS="-Xmx512m -XX:MaxMetaspaceSize=512m -XX:CompressedClassSpaceSize=256m"
 
-CMD ["java", "-jar", "kafka-stub.jar", "-b"]
+CMD ["java", "-jar", "oil-bot.jar"]
