@@ -8,6 +8,7 @@ import org.telegram.telegrambots.meta.api.methods.BotApiMethod;
 import org.telegram.telegrambots.meta.api.objects.CallbackQuery;
 import ssv.home.ozonbot.bot.TelegramBot;
 import ssv.home.ozonbot.service.handler.auth.AuthHandler;
+import ssv.home.ozonbot.service.handler.callback.ShowProductHandler;
 import ssv.home.ozonbot.service.manager.Manager;
 
 @Service
@@ -16,6 +17,7 @@ import ssv.home.ozonbot.service.manager.Manager;
 public class CallbackQueryManager implements Manager {
 
     private final AuthHandler authHandler;
+    private final ShowProductHandler showProductHandler;
 
     @Override
     public <T extends BotApiObject> BotApiMethod<?> route(T apiObject, TelegramBot bot) {
@@ -33,8 +35,7 @@ public class CallbackQueryManager implements Manager {
                 case "product":
                     long productId = Long.parseLong(value);
                     log.info("CallbackQueryHandler answerCallbackQuery productId={}", productId);
-                    break;
-
+                    return showProductHandler.answerCallbackQuery(callbackQuery, bot);
 
                 default:
                     log.info("Неизвестный keyWord в callbackData");

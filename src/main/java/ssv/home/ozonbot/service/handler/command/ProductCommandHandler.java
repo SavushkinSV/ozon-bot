@@ -17,7 +17,7 @@ import java.util.List;
 
 @Component
 @AllArgsConstructor
-public class ProductHandler implements CommandHandler {
+public class ProductCommandHandler implements CommandHandler {
 
     private final MethodFactory methodFactory;
     private final KeyboardFactory keyboardFactory;

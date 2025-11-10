@@ -19,4 +19,5 @@ public class LoginCommandHandler implements CommandHandler {
     public String getCommand() {
         return Command.LOGIN.getCommand();
     }
+
 }
