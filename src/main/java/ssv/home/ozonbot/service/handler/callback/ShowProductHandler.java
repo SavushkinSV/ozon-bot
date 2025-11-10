@@ -1,6 +1,7 @@
 package ssv.home.ozonbot.service.handler.callback;
 
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.telegram.telegrambots.meta.api.methods.BotApiMethod;
 import org.telegram.telegrambots.meta.api.objects.CallbackQuery;
@@ -11,6 +12,7 @@ import ssv.home.ozonbot.service.ProductService;
 import ssv.home.ozonbot.service.factory.MethodFactory;
 import ssv.home.ozonbot.service.handler.Handler;
 
+@Slf4j
 @Service
 @AllArgsConstructor
 public class ShowProductHandler implements Handler {
@@ -29,29 +31,32 @@ public class ShowProductHandler implements Handler {
         String[] parts = callbackQuery.getData().split(":", 2);
         Long productId = Long.parseLong(parts[1]);
         Product product = productService.findById(productId);
-        bot.executeTelegramApiMethod(methodFactory.getDeleteMessage(
-                chatId,
-                callbackQuery.getMessage().getMessageId()));
-
         bot.executeTelegramApiMethod(methodFactory.getSendPhotoHtml(
                 chatId,
                 parts[1],
                 formatProduct(product)
         ));
 
-        return null;
+        return methodFactory.getDeleteMessage(
+                chatId,
+                callbackQuery.getMessage().getMessageId());
     }
 
     private String formatProduct(Product product) {
-        return String.format(
-                """
-                        📦 <b>%s</b>
-                        💰 <b>%,.2f₽</b>
-                        %s
-                        """,
-                product.getName(),
-                product.getPrice(),
-                (product.getDescription() != null ? "📝 " + product.getDescription() : "")
-        );
+        StringBuilder sb = new StringBuilder();
+        sb.append("<b>").append(product.getName()).append("</b>\n");
+        sb.append("%,.2f₽\n".formatted(product.getPrice()));
+        sb.append("\n<b>Описание:</b>\n");
+
+        if (product.getDescription() != null && !product.getDescription().isEmpty()) {
+            // Разбиваем описание на абзацы по двойным переносам
+            String[] paragraphs = product.getDescription().split(" {2}");
+            for (String paragraph : paragraphs) {
+                sb.append(paragraph).append("\n\n");
+            }
+        } else {
+            sb.append("Нет описания.");
+        }
+        return sb.toString();
     }
 }

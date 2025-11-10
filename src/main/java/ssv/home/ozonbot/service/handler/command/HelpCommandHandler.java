@@ -19,7 +19,7 @@ public class HelpCommandHandler implements CommandHandler {
 
     @Override
     public BotApiMethod<?> answerMessage(Message message, TelegramBot bot) {
-        log.info("HelpCommandHandlerImpl " + "answer");
+        log.debug("HelpCommandHandlerImpl");
         String text = """
                 ℹ️ *Как работает бот?*
                 Бот опрашивает на наличие товара, изменение цены и других данных в маркетплейс Ozon и если изменения попадают в диапазон ваших настроек присылает уведомление. Для последующего отслеживания устанавливается новая текущая цена.

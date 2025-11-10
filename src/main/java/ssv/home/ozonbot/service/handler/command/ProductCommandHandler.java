@@ -1,6 +1,7 @@
 package ssv.home.ozonbot.service.handler.command;
 
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.BotApiMethod;
 import org.telegram.telegrambots.meta.api.objects.Message;
@@ -17,6 +18,7 @@ import java.util.List;
 
 @Component
 @AllArgsConstructor
+@Slf4j
 public class ProductCommandHandler implements CommandHandler {
 
     private final MethodFactory methodFactory;
@@ -25,6 +27,7 @@ public class ProductCommandHandler implements CommandHandler {
 
     @Override
     public BotApiMethod<?> answerMessage(Message message, TelegramBot bot) {
+        log.debug("ProductCommandHandler");
         Long chatId = message.getChatId();
         List<Product> productList = productService.findAll();
 

@@ -1,6 +1,7 @@
 package ssv.home.ozonbot.service.handler.command;
 
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import org.telegram.telegrambots.meta.api.methods.BotApiMethod;
@@ -16,6 +17,7 @@ import ssv.home.ozonbot.service.handler.CommandHandler;
 
 @Component
 @AllArgsConstructor
+@Slf4j
 public class ProfileCommandHandler implements CommandHandler {
 
     private final MethodFactory methodFactory;
@@ -24,6 +26,7 @@ public class ProfileCommandHandler implements CommandHandler {
     @Override
     @Transactional
     public BotApiMethod<?> answerMessage(Message message, TelegramBot bot) {
+        log.debug("ProfileCommandHandler");
         Client client = clientService.findByChatId(message.getChatId());
         if (client.getRole().isAuthenticated())
             return showProfile(message, client);
@@ -56,7 +59,6 @@ public class ProfileCommandHandler implements CommandHandler {
 
         text.append("\uD83D\uDC64 Имя пользователя: ").append(clientDetails.getFirstName());
         text.append("\n\uD83D\uDCBC Роль: ").append(client.getRole().name());
-        text.append("\n\uD83D\uDD11 Токен: ").append(client.getToken());
 
         return methodFactory.getSendMessageText(chatId,
                 text.toString(),

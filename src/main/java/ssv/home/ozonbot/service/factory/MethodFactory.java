@@ -59,7 +59,7 @@ public class MethodFactory {
      *
      * @param chatId    задает {@code ID} чата;
      * @param messageId задает {@code ID} сообщения.
-     * @return объект класса {@code DeleteMessage}
+     * @return объект класса {@link DeleteMessage}
      */
     public DeleteMessage getDeleteMessage(Long chatId, Integer messageId) {
         return DeleteMessage.builder()
@@ -88,10 +88,10 @@ public class MethodFactory {
      * Формирует объект {@link SendPhoto} для отправки фото через Telegram Bot API
      *
      * @param chatId    задает {@code ID} чата;
-     * @param photoKey
+     * @param photoKey  идентификатор изображения
      * @param caption   задает подпись для фото;
      * @param parseMode режим форматирования текста в подписи ("Markdown", "HTML" или null).
-     * @return
+     * @return объект класса {@link SendPhoto}
      */
     private SendPhoto getSendPhoto(Long chatId,
                                    String photoKey,
@@ -121,6 +121,18 @@ public class MethodFactory {
                                       String photoKey,
                                       String caption) {
         return getSendPhoto(chatId, photoKey, caption, ParseMode.HTML);
+    }
+
+    public SendPhoto getSendPhotoText(Long chatId,
+                                      String photoKey,
+                                      String caption) {
+        return getSendPhoto(chatId, photoKey, caption, null);
+    }
+
+    public SendPhoto getSendPhotoMarkdown(Long chatId,
+                                          String photoKey,
+                                          String caption) {
+        return getSendPhoto(chatId, photoKey, caption, ParseMode.MARKDOWN);
     }
 
 }

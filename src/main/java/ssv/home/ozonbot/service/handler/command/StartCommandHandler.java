@@ -24,7 +24,7 @@ public class StartCommandHandler implements CommandHandler {
     @Override
     @Transactional
     public BotApiMethod<?> answerMessage(Message message, TelegramBot bot) {
-        log.info("StartCommandHandler answerMessage");
+        log.debug("StartCommandHandler");
         Long chatId = message.getFrom().getId();
 
         if (!clientService.existsByChatId(chatId)) {

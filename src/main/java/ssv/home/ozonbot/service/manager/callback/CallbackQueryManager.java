@@ -24,19 +24,13 @@ public class CallbackQueryManager implements Manager {
         if (apiObject instanceof CallbackQuery callbackQuery) {
             String[] parts = callbackQuery.getData().split(":", 2);
             String keyWord = parts[0];
-            String value = parts[1];
-            log.info("CallbackQueryHandler answerCallbackQuery callbackData={} keyWord={}", callbackQuery.getData(), keyWord);
+            log.debug("CallbackQueryHandler callbackData={}", callbackQuery.getData());
 
             switch (keyWord) {
                 case "auth":
-                    return authHandler.answerCallbackQuery(
-                            callbackQuery,
-                            bot);
+                    return authHandler.answerCallbackQuery(callbackQuery, bot);
                 case "product":
-                    long productId = Long.parseLong(value);
-                    log.info("CallbackQueryHandler answerCallbackQuery productId={}", productId);
                     return showProductHandler.answerCallbackQuery(callbackQuery, bot);
-
                 default:
                     log.info("Неизвестный keyWord в callbackData");
             }
