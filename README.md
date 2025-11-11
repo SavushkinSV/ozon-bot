@@ -14,5 +14,5 @@ docker-compose up -d
 Для запуска контейнера с телеграм ботом:
 
 ```bash
-docker run --name oil-bot --rm -d -p 8080:8080 --network docker_default oil-bot:1.0
+docker run --name oil-bot --rm -d -p 8080:8080 --network docker_default --env-file .env oil-bot:1.0
 ```
