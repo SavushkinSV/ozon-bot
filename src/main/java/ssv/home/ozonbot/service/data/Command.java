@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
 public enum Command {
 
     START("/start", "Начать работу"),
-    HELP("/help", "Показать список команд"),
+    ABOUT("/about", "Немного о продукции"),
     LOGIN("/login", "Авторизация пользователя"),
     PROFILE("/profile", "Ваш профиль"),
     PRODUCT("/product", "Список товаров"),
