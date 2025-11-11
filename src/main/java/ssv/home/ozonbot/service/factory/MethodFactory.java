@@ -80,7 +80,8 @@ public class MethodFactory {
 
     public static InputStream loadImage(String name) {
         try {
-            return ClassLoader.getSystemResourceAsStream("images/" + name + ".jpg");
+            ClassLoader classLoader = MethodFactory.class.getClassLoader();
+            return classLoader.getResourceAsStream("images/" + name + ".jpg");
         } catch (Exception e) {
             log.error("Can't load photo!");
             throw new RuntimeException();
