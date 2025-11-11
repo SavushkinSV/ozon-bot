@@ -17,8 +17,6 @@ import ssv.home.ozonbot.service.handler.Handler;
 
 import java.util.List;
 
-import static ssv.home.ozonbot.service.data.Callback.AUTH_TEACHER;
-
 @Service
 @AllArgsConstructor
 @Slf4j
@@ -49,13 +47,17 @@ public class AuthHandler implements Handler {
 
     @Override
     public BotApiMethod<?> answerCallbackQuery(CallbackQuery callbackQuery, TelegramBot bot) {
+        String[] parts = callbackQuery.getData().split(":", 2);
+        String value = parts[1];
         Long chatId = callbackQuery.getMessage().getChatId();
         Integer messageId = callbackQuery.getMessage().getMessageId();
         Client client = clientService.findByChatId(chatId);
-        if (AUTH_TEACHER.equals(callbackQuery.getData())) {
-            client.setRole(Role.TEACHER);
+
+        log.debug("CallbackQueryHandler callbackData={}", callbackQuery.getData());
+        if (value.equals(Role.EMPLOYEE.getCode())) {
+            client.setRole(Role.EMPLOYEE);
         } else {
-            client.setRole(Role.STUDENT);
+            client.setRole(Role.CUSTOMER);
         }
         client.setAction(Action.FREE);
         clientService.save(client);

@@ -11,8 +11,8 @@ import java.util.List;
 public enum Role {
 
     ADMIN("admin", "Администратор"),
-    STUDENT("student", "Ученик"),
-    TEACHER("teacher", "Учитель"),
+    CUSTOMER("customer", "Покупатель"),
+    EMPLOYEE("employee", "Сотрудник"),
     EMPTY("empty", "Нет роли");
 
     private final String code;

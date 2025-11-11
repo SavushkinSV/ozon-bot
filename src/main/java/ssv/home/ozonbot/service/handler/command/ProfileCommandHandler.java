@@ -58,7 +58,7 @@ public class ProfileCommandHandler implements CommandHandler {
         ClientDetails clientDetails = client.getClientDetails();
 
         text.append("\uD83D\uDC64 Имя пользователя: ").append(clientDetails.getFirstName());
-        text.append("\n\uD83D\uDCBC Роль: ").append(client.getRole().name());
+        text.append("\n\uD83D\uDCBC Роль: ").append(client.getRole().getDisplayName());
 
         return methodFactory.getSendMessageText(chatId,
                 text.toString(),
