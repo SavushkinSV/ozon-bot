@@ -6,6 +6,7 @@ import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.objects.Message;
 import ssv.home.ozonbot.bot.TelegramBot;
@@ -16,6 +17,7 @@ import ssv.home.ozonbot.service.factory.MethodFactory;
 import ssv.home.ozonbot.service.handler.auth.AuthHandler;
 
 @Aspect
+@Order(20)
 @Component
 @AllArgsConstructor
 @Slf4j

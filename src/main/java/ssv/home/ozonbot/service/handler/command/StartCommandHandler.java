@@ -27,10 +27,6 @@ public class StartCommandHandler implements CommandHandler {
         log.debug("StartCommandHandler");
         Long chatId = message.getFrom().getId();
 
-        if (!clientService.existsByChatId(chatId)) {
-            clientService.saveFromUser(message.getFrom());
-        }
-
         ClientDetails clientDetails = clientService.findByChatId(chatId).getClientDetails();
         StringBuilder sb = new StringBuilder();
         sb.append("Здравствуйте <b>").append(clientDetails.getFirstName());

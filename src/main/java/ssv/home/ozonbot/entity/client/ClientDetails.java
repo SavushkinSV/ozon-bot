@@ -23,4 +23,7 @@ public class ClientDetails extends AbstractEntity {
 
     private LocalDateTime registerAt;
 
+    @Column(columnDefinition = "VARCHAR(20)")
+    private String phoneNumber;
+
 }

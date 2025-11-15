@@ -5,7 +5,6 @@ import lombok.*;
 import ssv.home.ozonbot.entity.AbstractEntity;
 import ssv.home.ozonbot.service.data.Role;
 
-import java.util.List;
 import java.util.UUID;
 
 @Getter
@@ -31,14 +30,6 @@ public class Client extends AbstractEntity {
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "client_details_id")
     private ClientDetails clientDetails;
-
-    @ManyToMany
-    @JoinTable(
-            joinColumns = @JoinColumn(name = "teacher_id"),
-            inverseJoinColumns = @JoinColumn(name = "student_id"),
-            name = "relationships"
-    )
-    private List<Client> clients;
 
     @PrePersist
     private void generateToken() {
