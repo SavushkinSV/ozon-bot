@@ -9,6 +9,7 @@ import org.telegram.telegrambots.meta.api.methods.send.SendPhoto;
 import org.telegram.telegrambots.meta.api.methods.updatingmessages.DeleteMessage;
 import org.telegram.telegrambots.meta.api.objects.InputFile;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboard;
+import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboardRemove;
 
 import java.io.InputStream;
 
@@ -138,6 +139,17 @@ public class MethodFactory {
                                           String photoKey,
                                           String caption) {
         return getSendPhoto(chatId, photoKey, caption, ParseMode.MARKDOWN);
+    }
+
+    public SendMessage sendMessageTextWithDeleteKeyboard(Long chatId,
+                                                     String text) {
+        ReplyKeyboardRemove keyboardRemove = new ReplyKeyboardRemove();
+        keyboardRemove.setRemoveKeyboard(true);
+        return SendMessage.builder()
+                .chatId(chatId)
+                .text(text)
+                .replyMarkup(keyboardRemove)
+                .build();
     }
 
 }

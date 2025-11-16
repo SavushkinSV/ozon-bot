@@ -70,7 +70,9 @@ public class ProfileCommandHandler implements CommandHandler {
 
         text.append("\uD83D\uDC64 Имя пользователя: ").append(clientDetails.getFirstName());
         text.append("\n\uD83D\uDCBC Роль: ").append(client.getRole().getDisplayName());
-        text.append("\n☎ Телефон: ").append(clientDetails.getPhoneNumber());
+
+        String phoneNumber = (client.getClientDetails().getPhoneNumber() == null) ? "Нет" : "Есть";
+        text.append("\n☎ Телефон: ").append(phoneNumber);
 
         return methodFactory.getSendMessageText(chatId,
                 text.toString(),
