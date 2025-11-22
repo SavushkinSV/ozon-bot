@@ -18,7 +18,7 @@ public enum Command {
 
     START("/start", "Начать работу"),
     ABOUT("/about", "Немного о продукции"),
-    LOGIN("/login", "Авторизация пользователя"),
+    AUTH("/auth", "Авторизация пользователя"),
     PROFILE("/profile", "Ваш профиль"),
     PRODUCT("/product", "Список товаров"),
     CONTACT("/contact", "Наши контакты");

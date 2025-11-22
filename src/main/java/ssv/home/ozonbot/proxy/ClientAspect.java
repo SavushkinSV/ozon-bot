@@ -29,7 +29,7 @@ public class ClientAspect {
     public void answerMessageProfileCommandPointcut() {
     }
 
-    @Pointcut("execution(* ssv.home.ozonbot.service.handler.command.LoginCommandHandler.answerMessage(..))")
+    @Pointcut("execution(* ssv.home.ozonbot.service.handler.command.AuthCommandHandler.answerMessage(..))")
     public void answerMessageLoginCommandPointcut() {
     }
 

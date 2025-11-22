@@ -13,7 +13,6 @@ import ssv.home.ozonbot.bot.TelegramBot;
 import ssv.home.ozonbot.entity.client.Action;
 import ssv.home.ozonbot.entity.client.Client;
 import ssv.home.ozonbot.service.ClientService;
-import ssv.home.ozonbot.service.factory.MethodFactory;
 import ssv.home.ozonbot.service.handler.auth.AuthHandler;
 
 @Aspect
@@ -25,9 +24,8 @@ public class AuthAspect {
 
     private final ClientService clientService;
     private final AuthHandler authHandler;
-    private final MethodFactory methodFactory;
 
-    @Pointcut("execution(* ssv.home.ozonbot.service.handler.command.LoginCommandHandler.answerMessage(..))")
+    @Pointcut("execution(* ssv.home.ozonbot.service.handler.command.AuthCommandHandler.answerMessage(..))")
     public void answerMethodPointcut() {
     }
 
@@ -39,12 +37,8 @@ public class AuthAspect {
         Client client = clientService.findByChatId(message.getChatId());
 
         if (client.getRole().isAuthenticated()) {
-            if (client.getAction() == Action.FREE) {
-                return methodFactory.getSendMessageText(message.getChatId(), "Вы уже авторизованы.", null);
-            }
             return joinPoint.proceed();
         }
-
         if (client.getAction() == Action.AUTH) {
             return joinPoint.proceed();
         }
