@@ -47,8 +47,8 @@ public class MessageHandler implements Handler {
     }
 
     private SendMessage addPhoneNumber(Message message) {
-        String phoneNumber = encryptionUtil.encrypt(message.getContact().getPhoneNumber());
         Client client = clientService.findByChatId(message.getChatId());
+        String phoneNumber = encryptionUtil.encrypt(message.getContact().getPhoneNumber(), client);
         client.getClientDetails().setPhoneNumber(phoneNumber);
         clientService.save(client);
         return methodFactory.sendMessageTextWithDeleteKeyboard(message.getChatId(), "Телефон добавлен в профиль");
